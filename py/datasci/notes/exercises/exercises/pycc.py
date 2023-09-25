@@ -58,11 +58,17 @@
 #         else:
 #             return False
 
+
+# def is_dog (x):
+    # return 'dog' in x.lower().split()
+
+
+
+
 # test_string = "The quick brown fox jumps over the lazy dog"
 # print(is_dog(test_string))
 
 # Some edge cases include "dog" written in all upper case or "dog" with puncuation.
-
 
 # Create a function that counts the number of times the word "dog" occurs in a string. Again ignore the edge cases.
 
@@ -73,6 +79,17 @@
 #         if (search_string[i] == "dog"):
 #             dog +=1
 #     return dog
+
+# def countDog (x):
+#     count = 0 
+#     for word in x.lower().split():
+#         if (word == 'dog'):
+#             count +=1
+#     return count
+                
+
+# gotta stop doing the range(len(thingy)) <- redudant
+
 
 # test_str = "This dog runs faster than the other dog dude!"
 
@@ -100,21 +117,42 @@
 # If speed >=81, then "Big Ticket"
 
 
-def caught_speeding (speed, is_birthday):
-    if (is_birthday != True):
-        if (speed < 60):
-            return "not ticket"
-        elif (speed >= 61 and speed <= 80):
-            return "Small ticket"
-        else:
-            return "Big ticket"
-    else:
-        if (speed < 65):
-            return "not ticket"
-        elif (speed >= 66 and speed <= 85):
-            return "Small ticket"
-        else:
-            return "Big ticket"
+# def caught_speeding (speed, is_birthday):
+#     if (is_birthday != True):
+#         if (speed < 60):
+#             return "not ticket"
+#         elif (speed >= 61 and speed <= 80):
+#             return "Small ticket"
+#         else:
+#             return "Big ticket"
+#     else:
+#         if (speed < 65):
+#             return "not ticket"
+#         elif (speed >= 66 and speed <= 85):
+#             return "Small ticket"
+#         else:
+#             return "Big ticket"
 
-# print(caught_speeding(81,False))
+# another solution is 
+
+def caught_speeding (speed, is_birthday):
+    if is_birthday:
+        speeding = speed - 5 
+    else: 
+        speeding = speed
+    if (speeding > 80):
+        return 'Big Ticket'
+    elif (speeding > 60):
+        return "Small Ticket"
+    else:
+        return 'No Ticket'
+
+
+
+
+
+
+
+
+print(caught_speeding(81,True))
 

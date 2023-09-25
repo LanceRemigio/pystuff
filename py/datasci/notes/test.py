@@ -1,13 +1,9 @@
-def square (x):
-    """
-    Square each element of a list and returns each element of 
-    the list but squared
-    """
-    return [x[i]**2 for i in x]
+import numpy as np
 
-a_list = [2,3,4,5]
+arr_2d = np.arange(50).reshape(5,10)
 
-print(square(a_list))
+print(arr_2d)
+print(arr_2d[2:4, 4:6])
 
 
 
