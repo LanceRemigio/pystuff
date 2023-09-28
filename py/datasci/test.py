@@ -3,18 +3,16 @@ import pandas as pd
 from numpy.random import randn
 
 
+data = {'Company': ['GOOG', 'GOOG', 'MSFT', 'MSFT', 'FB', 'FB'], 
+        'Person': ['Sam', 'Charlie', 'Amy', 'Vanessa', 'Carl', 'Sarah'],
+        'Sales': [200, 120, 340, 124, 243, 350]
+}
 
-np.random.seed(101)
+df = pd.DataFrame(data)
 
-row_index = ['A', 'B', 'C', 'D', 'E']
-col_index = ['W', 'X', 'Y', 'Z']
-df = pd.DataFrame(randn(5,4), row_index, col_index)
 
-newind = 'CA NY WY OR CO'.split()
-df['States'] = newind
-df.set_index('States', inplace = True)
-print(df)
-
+byComp = df.groupby('Company').describe()
+print(byComp)
 
 
 

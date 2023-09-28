@@ -61,7 +61,7 @@ which returns
 E  0.190794  1.978757  2.605967  0.683509
 ````
 
-Note that if we passed in `and` instead of `&` we will get an error saying that the comparison between two boolean series is ambigious. If we wanted to use `or`, then we would just need to use the `|` operator.
+Note that if we passed in `and` instead of `&` we will get an error saying that the comparison between two boolean values when looking at two series is ambigious. If we wanted to use `or`, then we would just need to use the `|` operator.
 
 
 
@@ -77,7 +77,7 @@ Another way we can modify indices so that we may overrite our originla index is 
 ````python
 newind = 'CA NY WY CO'.split()
 df['States'] = newind
-df.set_index('States', inplace = True)
+df.set_index('States', inplace = True) # set inplace = True to make changes permanent
 ````
 which returns
 ````
