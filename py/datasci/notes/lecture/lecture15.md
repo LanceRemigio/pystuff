@@ -133,4 +133,45 @@ which returns the following:
 We can also drop rows with NaN values such as the following:
 ````python
 df.dropna()
+
 ````
+
+## Filling in NaN values with something else
+
+Suppose we created the following DataFrame:
+````python
+df = pd.DataFrame({'col1':[1,2,3,np.nan],
+                   'col2':[np.nan,555,666,444],
+                   'col3':['abc','def','ghi','xyz']})
+````
+
+Note that we can see that there are missing values in the 4th row of `col1` and in the 1st row of `col2` . We can fill in these missing values by using the `fillna` function:
+````python
+df.fillna('FILL')
+````
+which returns the following DataFrame:
+````
+   col1   col2 col3
+0   1.0   FILL  abc
+1   2.0  555.0  def
+2   3.0  666.0  ghi
+3  FILL  444.0  xyz
+````
+
+## Pivoting Tables
+Suppose we have the following DataFrame:
+````python
+data = {'A':['foo','foo','foo','bar','bar','bar'],
+     'B':['one','one','two','two','one','one'],
+       'C':['x','y','x','y','x','y'],
+       'D':[1,3,2,5,4,1]}
+````
+
+
+We can use the methods such pivoting tables from excel in pandas as well. We can do this by typing the following:
+````python
+df.pivot_table(values = 'D', index =  ['A', 'B'], columns =  ['C'])
+
+````
+This rearranges indices of the above DataFrame in terms of `A` and `B` (the values of each row are used as indices) and uses the values of the `D` column to fill in the values in the `x` and `y` columns. 
+
