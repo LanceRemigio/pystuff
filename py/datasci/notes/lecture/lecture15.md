@@ -102,7 +102,7 @@ RangeIndex(start=0, stop=4, step=1)
 
 ## Sorting and Ordering a DataFrame
 We can sort values in ascending order (similar to group by in SQL) by using the `sort_values()` function 
-````python
+
 df.sort_values('col2')
 ````
 which returns the following DataFrame with the indices of the values preserved
