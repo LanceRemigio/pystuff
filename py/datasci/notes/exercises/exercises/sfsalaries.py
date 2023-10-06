@@ -1,18 +1,25 @@
-from numpy import average, who
 import pandas as pd
 
 
 sal = pd.read_csv('Salaries.csv')
 
-# print(sal.head())
+def findchief (x):
+    if 'chief' in x.lower().split():
+        return True
+    else:
+        return False
 
-# print(sal.info())
 
-# avg_pay = sal['BasePay'].mean()
-# max_pay = sal['OvertimePay'].max()
-# print(max_pay)
+# JobTitle
+# TotalPayBenefits
+
+sal['title_len'] = sal['JobTitle'].apply(len)
+
+
+
+
 
 
 print(
-        sal['JobTitle'].value_counts()
+        sal[['title_len', 'TotalPayBenefits']].corr()
         )

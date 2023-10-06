@@ -150,3 +150,62 @@ Name: count, dtype: int64
 
 
 How many Job Titles were represented by only one person in 2013? (e.g Job Titles with only one occurence in 2013?)
+
+
+````python
+sum(sal[ sal['Year'] == 2013 ]['JobTitle'].value_counts() == 1)
+````
+which returns `202` entries.
+
+
+How many people have the word Chief in their Job title?
+
+First we need to create a function that tells us if the word chief is in the job title:
+````python
+def findchief (x):
+    if 'chief' in x.lower().split():
+        return True
+    else:
+        return False
+````
+
+Then we can use this function and pass it in as an argument to the `filter()` function in addition to the column we want to analyze. In this case
+We want to analyze `sal['JobTitle']`. Hence, we have
+````python
+    len(list(filter(findchief, sal['JobTitle'])))
+````
+
+
+Bonus: Is there a correlation between the length of the Job Title string and salary?
+
+
+````python
+sal['title_len'] = sal['JobTitle'].apply(len)
+
+print(
+        sal[['title_len', 'TotalPayBenefits']].corr()
+        )
+````
+
+which returns the following data frame
+
+````
+                  title_len  TotalPayBenefits
+title_len          1.000000         -0.036878
+TotalPayBenefits  -0.036878          1.000000
+````
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
