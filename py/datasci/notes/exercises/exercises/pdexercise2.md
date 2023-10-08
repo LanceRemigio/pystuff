@@ -26,7 +26,20 @@ which returns
 
 ## Checking the amount of rows and columns
 
-We can do this by typing the following:
+There are a couple of ways to do this:
+
+We can use the `columns` function to return the number of columns in the dataframe:
+````python
+len(ecom.columns)
+````
+
+Then we can use the `index` function along with the `len` function to return the number of rows in the data frame:
+
+````python
+len(ecom.index)
+````
+
+Another way we can do this is to just use the `info` function.
 ````python
 ecom.info()
 ````
@@ -92,6 +105,13 @@ Lawyer    30
 Name: Job, dtype: int64
 ````
 
+If just want the number and not a series, we can just use the `count()` function; that is, 
+````python
+ecom[ecom['Job'] == 'Lawyer']['Job'].count()
+````
+
+
+
 ## How many people made the purchase during the AM and how many people made the purchase during PM?
 
 We can easily do this by typing the following:
@@ -120,10 +140,12 @@ Purchasing manager               27
 Designer, jewellery              27
 Name: Job, dtype: int64
 ````
+
+Observe that the default ordering of the series above is in an ascending order.
 ## Someone made a purchase that came from Lot: "90 WT". What was the purchase price for this transaction?   
 We can do this by typing the following:
 ````python
-        ecom[ecom['Lot'] == '90 WT']['Purchase Price']
+ecom[ecom['Lot'] == '90 WT']['Purchase Price']
 ````
 which returns the following:
 ````
@@ -134,10 +156,7 @@ Name: Purchase Price, dtype: float64
 ## What is the email of the person with the following Credit Card Number: "4926535242672853"
 
 ````python
-        ecom[ecom['Credit Card'] == 4926535242672853]['Email']
-````
-````python
-
+ecom[ecom['Credit Card'] == 4926535242672853]['Email']
 ````
 
 ````
@@ -169,6 +188,13 @@ Purchase Price      39
 dtype: int64
 ````
 
+We can also get the same result by using the `index()` function 
+````python
+ecom[(ecom['CC Provider'] == 'American Express') & (ecom['Purchase Price'] > 95 )  ]['CC Provider'].index()
+````
+
+
+
 ## Hard: How many people have a credit card that expires in 2025?
 
 First, we need to create a function that returns the credit cards whose expiration dates expires in 2025. We can do this by defining the following function:
@@ -189,10 +215,16 @@ which outputs the following amount
 ````
 1033
 ````
+Another way to do this is to pass in the column and use the `iloc` function which can be done in the following way:
 
-
-
-
+````python
+ecom['CC Exp Date'].iloc[0][3:]
+````
+Just like our first method, we will use the the `apply()` function with a lambda expression to apply this for every row in the `CC Exp Date` column. Hence, we have the following:
+````python
+ecom['CC Exp Date'].apply(lambda exp: exp[3:] == '25')
+````
+To get the number of credit cards that expires in 2025, we can pass in the expression above into the `sum()`. This returns `1033`.
 
 
 
@@ -223,3 +255,10 @@ smith.com         42
 williams.com      37
 Name: Email, dtype: int64
 ````
+We can shorten the code above by using a lambda expression instead; that is, 
+````python
+ecom['Email Host'] = ecom['Email'].apply(
+    lambda x: x.split('@')[1]
+    )
+````
+
