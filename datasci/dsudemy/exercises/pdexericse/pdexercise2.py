@@ -14,6 +14,9 @@ def getExp(x):
 # def getHost(x):
 #     return x.split("@")[1]
 
+print(ecom['Email'].head(5))
+
+
 ecom['Email Host'] = ecom['Email'].apply(lambda x: x.split("@")[1])
 
 print(

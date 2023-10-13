@@ -38,9 +38,6 @@ We should display the following graph
 
 ## Object Oriented Method for implementing plots
 
-
-
-
 ````python
 fig = plt.figure() #acts as our blank canvas
 
