@@ -36,9 +36,18 @@ df['Day of Week'] = df['Day of Week'].map(dmap)
 df['Date'] = df['timeStamp'].apply(lambda x: x.date())
 
 
-byDateEMS = df[df['Reason'] == 'EMS'].groupby('Date')['twp'].count() 
-sns.lineplot(data = byDateEMS)
-plt.title('EMS')
+
+
+byDate = df.groupby('Date')['Reason'].loc[df['Reason'] == 'Traffic']
+
+# print(
+#         df['Reason'].loc[df['Reason'] == 'Traffic']
+#         )
+
+
+# sns.lineplot(data = byDate)
+
+
 
 
 

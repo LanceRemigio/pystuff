@@ -219,4 +219,74 @@ plt.legend(bbox_to_anchor=(1.0, 0.75)) # put legend outside of plot
 
 ![Countplot for the 'month' column ](month_countplot.png)
 
-Notice that there is something wrong with our countplot of the `Month` column above; that is, we have months 9-11 that have not been accounted for. A solution for this is to create a simple line plot that will fill in the missing information. 
+Notice that there is something wrong with our countplot of the `Month` column above; that is, we have months 9-11 that have not been accounted for. A solution for this is to create a simple line plot that will fill in the missing information. A way to do this is to use the `groupBy` method to group the columns of our dataframe using the `Month` column. Then we can plot our data using seaborn:
+
+````python
+byMonth =  df.groupby('Month').count()
+sns.lineplot(data = byMonth)
+````
+
+which will return the following line plot:
+
+![groupBy lineplot](byMonthlineplot.png)
+
+We can also create a line of best fit for the number of calls per month:
+````python
+sns.lmplot(data = byMonth.reset_index(), x = 'Month', y = 'twp')
+````
+
+which returns the following plot:
+
+![linear fit on number of calls per month](lfit_byMonth.png)
+
+
+Create a new column `Date` that contains the date from the `timeStamp` column. You'll need to use along with the `.date()` method.
+````python
+df['Date'] = df['timeStamp'].apply(lambda x: x.date())
+````
+We can groupby this new column along with the `count()` aggregate function to create a plot of counts of 911 calls.
+
+````python
+byDate = df.groupby('Date')['twp'].count()
+sns.lineplot(data = byDate)
+````
+which returns the following lineplot:
+
+
+
+We can employ the same methods to create three seperate plots representing each Reason for the 911 call.
+
+1. Traffic Calls
+
+````python
+byDateTraffic = df[df['Reason'] == 'Traffic'].groupby('Date')['twp'].count() 
+sns.lineplot(data = byDateTraffic)
+plt.title('Traffic')
+plt.show()
+````
+
+![traffic by date](trafficbydate.png)
+
+
+2. Fire
+````python
+
+byDateFire = df[df['Reason'] == 'Fire'].groupby('Date')['twp'].count() 
+sns.lineplot(data = byDateFire)
+plt.title('Fire')
+plt.show()
+````
+![fire by date](firebydate.png)
+
+
+3. EMS
+
+````python
+byDateEMS = df[df['Reason'] == 'EMS'].groupby('Date')['twp'].count() 
+sns.lineplot(data = byDateEMS)
+plt.title('EMS')
+plt.show()
+````
+![ems by date](emsbydatepng.png)
+
+
