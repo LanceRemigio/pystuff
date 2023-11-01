@@ -157,16 +157,6 @@ Fire       14920
 Name: Reason, dtype: int64
 ````
 
-Now we will visualize the data by creating a countplot by using seaborn for `Reason` column.
-
-````python
-df = pd.read_csv('911.csv')
-sns.countplot(x = 'Reason' , data = df )
-````
-which returns the following count plot:
-
-
-![Countplot for Reasons column](countplot.png)
 
 Now let us focus on time information. What is the data type of the objects in the timeStamp column?
 
@@ -210,11 +200,23 @@ df['Day of Week'] = df['timeStamp'].apply(lambda x: x.dayofweek)
 ````
 Now let's use seaborn to create a countplot of the `Day of Week` column with the hue based off of the Reason column. We can do this by typing the following code:
 ````python
-sns.countplot(x = 'Day of Week' , data  = df)
+sns.countplot(x = 'Day of Week' , hue = 'Reason'  data  = df)
+plt.legend(bbox_to_anchor=(1.0, 0.75)) # put legend outside of plot
 ````
 
- 
+which returns the following plot: 
 
 
 
 
+![Countplot for 'day of week' column](countplot.png)
+
+We can create a similar plot for the `Month` column which can be done in the following way:
+````python
+sns.countplot(x = 'Month' , hue = 'Reason' , data = df)
+plt.legend(bbox_to_anchor=(1.0, 0.75)) # put legend outside of plot
+````
+
+![Countplot for the 'month' column ](month_countplot.png)
+
+Notice that there is something wrong with our countplot of the `Month` column above; that is, we have months 9-11 that have not been accounted for. A solution for this is to create a simple line plot that will fill in the missing information. 

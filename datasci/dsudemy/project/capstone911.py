@@ -9,12 +9,9 @@ df = pd.read_csv('911.csv')
 df['Reason'] =  df['title'].apply(lambda x: x.split(':')[0])
 
 
-
-
 df['timeStamp'] = pd.to_datetime(df['timeStamp'])
        
         
-
 df['Hour'] = df['timeStamp'].apply(lambda x: x.hour)
 
 df['Month'] = df['timeStamp'].apply(lambda x : x.month)
@@ -34,16 +31,22 @@ dmap = {
 
 df['Day of Week'] = df['Day of Week'].map(dmap)
 
+byMonth =  df.groupby('Month').count()
+
+# To do.
+
+sns.lineplot(data = byMonth, x = 'Month')
+
 # print(df['Reason'])
 
-sns.countplot(x = 'Day of Week' , hue = 'Reason',  data  = df)
+# sns.countplot(x = 'Month' , hue = 'Reason',  data  = df)
 
 
-plt.legend(bbox_to_anchor=(1.0, 0.75))
+# plt.legend(bbox_to_anchor=(1.0, 0.75))
 
 
 
-
+# plt.savefig('countplot.png')
 
 
 
