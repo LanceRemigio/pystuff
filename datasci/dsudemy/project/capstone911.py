@@ -31,15 +31,35 @@ dmap = {
 
 df['Day of Week'] = df['Day of Week'].map(dmap)
 
-# byMonth =  df.groupby('Month')['twp'].count()
 
 df['Date'] = df['timeStamp'].apply(lambda x: x.date())
 
+# groupByDay = df.groupby(by = ['Day of Week', 'Hour']).count()['Reason'].unstack() # didn't know you could groupby two columns
+# sns.heatmap(groupByDay)
+# sns.clustermap(groupByDay)
 
-byDateEMS = df[df['Reason'] == 'EMS'].groupby('Date')['twp'].count() 
-sns.lineplot(data = byDateEMS)
-plt.title('EMS')
+groupByMonth = df.groupby(by = ['Day of Week', 'Month']).count()['Reason'].unstack()
+sns.heatmap(groupByMonth)
+sns.clustermap(groupByMonth)
 
 
+
+
+
+
+# print(df[['Day of Week', 'Hour']].unstack())
+
+
+# print(df[['Day of Week', 'Hour']].head())
+
+# print(df[['Day of Week', 'Hour']].unstack(level = 0).groupby('Hour'))
+
+
+
+
+
+# print(df[['Day of Week', 'Hour']])
+
+# print(df[['Day of Week', 'Hour']].unstack(level = 0))
 
 plt.show()

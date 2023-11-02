@@ -289,4 +289,54 @@ plt.show()
 ````
 ![ems by date](emsbydatepng.png)
 
+## Creating Heatmaps 
+
+Before creating the heatmaps using seaborn, we'll need to change our dataframe so that the columns become the hours and the Index become the `Day of the Week`. There are many ways to do this, but the recommended way is to use a combination of the `groupby` method with an `unstack ` method.
+
+This method takes on the same process as we've done in the creation of plots before this one. We can assign the following method onto a variable named `groupByDay`
+````python
+groupByDay = df.groupby(by = ['Day of Week', 'Hour']).count()['Reason'].unstack()
+````
+which will return the following dataframe if we pass in the code above into a print function:
+````
+Hour          0    1    2    3    4    5    6   ...    17   18   19   20   21   22   23
+Day of Week                                     ...                                    
+Fri          275  235  191  175  201  194  372  ...   980  820  696  667  559  514  474
+Mon          282  221  201  194  204  267  397  ...   997  885  746  613  497  472  325
+Sat          375  301  263  260  224  231  257  ...   757  778  696  628  572  506  467
+Sun          383  306  286  268  242  240  300  ...   714  670  655  537  461  415  330
+Thu          278  202  233  159  182  203  362  ...  1013  810  698  617  553  424  354
+Tue          269  240  186  170  209  239  415  ...  1019  905  731  647  571  462  274
+Wed          250  216  189  209  156  255  410  ...  1037  894  686  668  575  490  335
+````
+
+We can now make a heatmap by typing the following code:
+
+````python
+sns.heatmap(groupByDay)
+````
+
+which returns the following matrix plot:
+
+![heatmap by day of week](heatmapHour.png)
+
+We can also make a cluster map representing our new dataframe:
+
+![clustermap by day of week](clustermapHour.png)
+
+Using the same methods, we can restructure our dataframe in the same way but this time using `Month` as our columns instead of `Hour`:
+
+````python
+groupByMonth = df.groupby(by = ['Day of Week', 'Month']).count()['Reason'].unstack()
+sns.heatmap(groupByMonth)
+sns.clustermap(groupByMonth)
+````
+
+which creates the following two plots:
+
+
+![heatmap by month](heatmapMonth.png)
+
+
+![clustermap by month](clustermapMonth.png)
 
