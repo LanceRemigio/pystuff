@@ -10,30 +10,46 @@ import matplotlib.pyplot as plt
 # setting start and end datetime objects
 sns.set_style('whitegrid')
 df = pd.read_pickle('all_banks')
+
 # data = data.DataReader(y_symbols, start, end)
-
-
-
 
 tickers = ['BAC', 'C', 'GS', 'JPM', 'MS', 'WFC']
 
-
 # print( df.xs(key = 'Close', axis = 1, level = "Stock Info")['BAC'])
 
+
 returns = pd.DataFrame()
+
 
 for ticker in tickers:
     returns[ticker + ' Returns'] = df[ticker]['Close'].pct_change()
 
 
-# closePrice = df.xs(key = 'Close', axis = 1, level = "Stock Info")
+closePrice = df.xs(key = 'Close', axis = 1, level = "Stock Info")
+
 closePriceBAC = df.xs(key = 'Close', axis = 1, level = "Stock Info")['BAC'].loc['2008']
-# rolling30avg = df.xs(key = 'Close', axis = 1, level  = 'Stock Info')['BAC'].rolling('30D')
+rollingAvg = df.xs(key = 'Close', axis = 1 , level = "Stock Info")['BAC'].loc['2008'].rolling(30).mean()
+
+# part 2 (Optional)
+
+dataBAC = df['BAC'].loc['2015': '2016']
+
+# dataBAC.iplot(kind = 'candle')
 
 
-sns.lineplot(data = closePriceBAC)
-# sns.lineplot(data = rolling30avg)
 
+# -- plots -- 
+
+# sns.heatmap(data = closePrice.corr(), annot = True)
+# sns.clustermap(data = closePrice.corr(), annot = True)
+
+
+
+
+
+# sns.lineplot(data = closePriceBAC)
+# sns.lineplot(data = rollingAvg)
+# plt.savefig('./plots/clustermapClosePrice.png')
 plt.show()
 
 
