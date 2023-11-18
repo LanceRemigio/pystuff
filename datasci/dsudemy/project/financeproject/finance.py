@@ -25,18 +25,26 @@ for ticker in tickers:
     returns[ticker + ' Returns'] = df[ticker]['Close'].pct_change()
 
 
-closePrice = df.xs(key = 'Close', axis = 1, level = "Stock Info")
+# closePrice = df.xs(key = 'Close', axis = 1, level = "Stock Info")
+# closePriceBAC = df.xs(key = 'Close', axis = 1, level = "Stock Info")['BAC'].loc['2008']
+# closePriceBAC = df.xs(key = 'Close', axis = 1, level = "Stock Info")['BAC'].loc['2015']
+# closePriceBAC = df.xs(key = 'Close', axis = 1 , level = 'Stock Info')['BAC'].loc['2008']
+closePrice = df.xs(key = 'Close', axis = 1 , level = 'Stock Info')
+closePriceBAC = df.xs(key = 'Close', axis = 1 , level = 'Stock Info')['BAC'].loc['2008']
+rollingAvg = closePriceBAC.rolling(30).mean()
 
-closePriceBAC = df.xs(key = 'Close', axis = 1, level = "Stock Info")['BAC'].loc['2008']
-rollingAvg = df.xs(key = 'Close', axis = 1 , level = "Stock Info")['BAC'].loc['2008'].rolling(30).mean()
+sns.clustermap(data = closePrice.corr(), annot = True)
+plt.savefig('./plots/clustermapClosePrice.png')
 
 # part 2 (Optional)
 
-dataBAC = df['BAC'].loc['2015': '2016']
-
+# dataBAC = df['BAC'].loc['2015': '2016']
 # dataBAC.iplot(kind = 'candle')
-
-
+# dataMS = closePrice['MS'].loc['2015']
+# dataMS.ta_plot(study = 'sma')
+# dataSMA = df['BAC'].loc['2015']
+# dataSMA.ta_plot(study = 'sma')
+# dataSMA.iplot(study = 'boll')
 
 # -- plots -- 
 

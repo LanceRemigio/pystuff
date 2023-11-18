@@ -188,5 +188,72 @@ plt.show()
 
 Let's analyze the moving averages for the 2008 year. To do this we will create a line plot for the rolling 30 day average against the Close Price for Bank of America's stock for 2008.
 
+Using the `xs()` function, we can type
+````python
+closePriceBAC = df.xs(key = 'Close', axis = 1 , level = 'Stock Info')['BAC'].loc['2008']
+rollingAvg = closePriceBAC.rolling(30).mean()
+
+sns.lineplot(data = closePriceBAC , label = 'BAC CLOSE')
+sns.lineplot(data = rollingAvg  , label = '30 Day Avg')
+plt.legend(loc = 'upper right')
+plt.savefig('./plots/BACrollingAvg.png')
+plt.show()
+````
+
+which return the following plot:
+
+![Close Price and Rolling Average of BAC](./plots/BACrollingAvg.png)
+
+We can visualize the same data using a heatmap.
+
+````python
+closePrice = df.xs(key = 'Close', axis = 1 , level = 'Stock Info')
+sns.heatmap(data = closePrice.corr() , annot = True)
+plt.savefig('./plots/heatmapClosePrice.png')
+plt.show()
+
+````
+![Heat Map for close price](./plots/heatmapClosePrice.png)
+
+Alternatively, we can visualize the same data with a cluster map.
+
+````python
+sns.clustermap(data = closePrice.corr(), annot = True)
+plt.savefig('./plots/clustermapClosePrice.png')
+
+````
+
+![clustermap for close price](./plots/clustermapClosePrice.png)
+
+
+## Optional Visualizations
+
+
+We can create interactive visualizations using the plotly and cuffliknks library. Import the following libraries:
+````python
+import plotly
+import cufflinks as cf
+cf.go_offline()
+````
+
+Suppose we wanted to visualize Bank of America's stock from Jan 1st 2015 to Jan 1st 2016 using the a candle plot.
+````python
+dataBAC = df['BAC'].loc['2015': '2016']
+dataBAC.iplot(kind = 'candle')
+````
+
+Use .ta_plot(study='sma') to create a Simple Moving Averages plot of Morgan Stanley for the year 2015.
+
+````python
+closePrice = df.xs(key = 'Close', axis = 1, level = "Stock Info")
+dataMS = closePrice['MS'].loc['2015']
+dataMS.ta_plot(study = 'sma')
+````
+Use .ta_plot(study='boll') to create a Bollinger Band Plot for Bank of America for the year 2015.
+
+````python
+closePriceBAC = df.xs(key = 'Close', axis = 1, level = "Stock Info")['BAC'].loc['2015']
+closePriceBAC.ta_plot(study = 'boll')
+````
 
 
